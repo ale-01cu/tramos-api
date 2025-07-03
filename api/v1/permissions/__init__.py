@@ -1,0 +1,5 @@
+from .CompanyPermission import CompanyPermission
+from .ServicePermission import ServicePermission
+from .CoursePermission import CoursePermission
+from .OfferPermission import OfferPermission
+from .MultipleBookingPermission import MultipleBookingPermission

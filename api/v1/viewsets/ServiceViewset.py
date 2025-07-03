@@ -1,0 +1,13 @@
+from rest_framework import viewsets
+
+from api.models import Service
+from api.v1.permissions import ServicePermission
+from api.v1.serializers import ServiceSerializer
+
+
+class ServiceViewset(viewsets.ReadOnlyModelViewSet):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
+    permission_classes = [ServicePermission]
+    ordering_fields = '__all__'
+
