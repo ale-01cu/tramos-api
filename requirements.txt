@@ -5,3 +5,5 @@ psycopg2
 drf-yasg
 django-filter
 django-cors-headers
+django-environ==0.12.0
+drf-spectacular==0.28.0

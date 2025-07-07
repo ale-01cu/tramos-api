@@ -10,15 +10,20 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-from corsheaders.defaults import default_headers
 import os
 from datetime import timedelta
 from pathlib import Path
+import environ
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ENV = os.environ.get('API_ENV', 'DEV')
+ENV = env('API_ENV')
 
 if ENV == 'DEV':
     from tramos_api.dev import *
@@ -60,22 +65,29 @@ CORS_ALLOWED_ORIGINS = [
 
 # Application definition
 
-INSTALLED_APPS = [
+BASE_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #librerias
+]
+
+LOCAL_APPS = [
+    'api.apps.ApiConfig',
+]
+
+THIRD_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
-    'drf_yasg',
     'django_filters',
-    #app
-    'api.apps.ApiConfig',
+    'drf_spectacular'
+
 ]
+
+INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -156,7 +168,8 @@ AUTH_USER_MODEL = "api.User"
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
@@ -164,4 +177,19 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
     "UPDATE_LAST_LOGIN": True,
     "TOKEN_OBTAIN_SERIALIZER": "api.v1.serializers.TokenObtainPairSerializer",
+}
+
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Tramos API',
+    'DESCRIPTION': 'Tramos API',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': r'/v1/',
+    # 'SCHEMA_PATH_PREFIX_TRIM': True,
+    # 'TAGS': [
+    #     {'name': 'Comments', 'description': 'Endpoints relacionados con comentarios'},
+    #     {'name': 'Classification', 'description': 'Endpoints relacionados con clasificación'},
+    # ],
+    # OTHER SETTINGS
 }
