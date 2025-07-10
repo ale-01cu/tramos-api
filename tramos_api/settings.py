@@ -175,7 +175,7 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
-    "UPDATE_LAST_LOGIN": True,
+    # "UPDATE_LAST_LOGIN": True,
     "TOKEN_OBTAIN_SERIALIZER": "api.v1.serializers.TokenObtainPairSerializer",
 }
 

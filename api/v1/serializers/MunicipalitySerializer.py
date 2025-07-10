@@ -10,3 +10,8 @@ class MunicipalitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Municipality
         fields = '__all__'
+
+class MunicipalityCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Municipality
+        fields = '__all__'

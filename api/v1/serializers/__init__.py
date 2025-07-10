@@ -1,10 +1,10 @@
-from .UserSerealizer import UserSerializer
+from .UserSerealizer import UserSerializer, UserCreateSerializer, UserUpdateSerializer
 from .TokenObtainPairSerializer import TokenObtainPairSerializer
 from .ChangePasswordSerializer import ChangePasswordSerializer
 from .ProvinceSerializer import ProvinceSerializer
-from .MunicipalitySerializer import MunicipalitySerializer
+from .MunicipalitySerializer import MunicipalitySerializer, MunicipalityCreateSerializer
 from .ServiceSerializer import ServiceSerializer
-from .SchoolSerializer import SchoolSerializer
+from .SchoolSerializer import SchoolSerializer, SchoolCreateSerializer
 from .ClientSerializer import ClientSerializer
 from .CompanySerializer import CompanySerializer
 from .LoginCompanySerializer import LoginCompanySerializer

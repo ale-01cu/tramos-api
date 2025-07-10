@@ -4,7 +4,7 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 
 from api.models import User
-from api.v1.serializers import UserSerializer, ChangePasswordSerializer
+from api.v1.serializers import UserSerializer, ChangePasswordSerializer, UserCreateSerializer, UserUpdateSerializer
 
 
 class UserViewset(viewsets.ModelViewSet):
@@ -34,6 +34,20 @@ class UserViewset(viewsets.ModelViewSet):
         user.password = password
         user.save()
         return Response({'detail': 'Password changed successfully'}, status=status.HTTP_200_OK)
+
+    def get_serializer_class(self):
+        """
+        Determina qué serializador usar basado en la acción.
+        """
+        # self.action contendrá 'list', 'create', 'retrieve', 'update', 'partial_update'
+        if self.action in ['create']:
+            return UserCreateSerializer  # Usa este para escribir datos
+
+        elif self.action in ['update', 'partial_update']:
+            return UserUpdateSerializer  # Usa este para escribir datos
+
+        # Para cualquier otra acción ('list', 'retrieve', etc.), usa el serializador por defecto.
+        return UserSerializer  # Usa este para leer datos
 
 
 
