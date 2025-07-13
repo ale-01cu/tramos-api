@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: tramos_api
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+      python manage.py migrate
+    startCommand: "gunicorn tramos_api.wsgi --bind 0.0.0.0:8000"
+    envVars:
+      - key: SECRET_KEY
+        value: "aaa" # Puedes cambiarla después desde el dashboard
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: "*.onrender.com,.render.com"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tramos_db
+          property: connectionString
+      - key: ENVIRONMENT
+        value: "production"
+
+databases:
+  - name: tramos_db
+    engine: postgresql
+    version: "16"
+    user: admin
+    host: dpg-d1q2jmje5dus73dhgir0-a
+    port: 5432
+    dbName: tramos_db
+    password:
+      fromGroup: postgres
