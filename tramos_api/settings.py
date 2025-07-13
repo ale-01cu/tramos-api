@@ -24,17 +24,32 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 ENV = env('API_ENV')
+#
+# if ENV == 'DEV':
+#     from tramos_api.dev import *
+# elif ENV == 'PROD':
+#     from tramos_api.prod import *
+# # elif ENV == 'DEPLOY':
+# #     from app.deploy import *
+# # elif ENV == 'TEST':
+# #     from app.prod_test import *
+# else:
+#     raise Exception('DV_ENV debe ser (DEV, PROD).')
 
-if ENV == 'DEV':
-    from tramos_api.dev import *
-elif ENV == 'PROD':
-    from tramos_api.prod import *
-# elif ENV == 'DEPLOY':
-#     from app.deploy import *
-# elif ENV == 'TEST':
-#     from app.prod_test import *
-else:
-    raise Exception('DV_ENV debe ser (DEV, PROD).')
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USERNAME'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
+    },
+}
+
+DEBUG = ENV == 'DEV'
+SECRET_KEY = env('SECRET_KEY')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
