@@ -5,7 +5,7 @@ from api.v1.permissions import ServicePermission
 from api.v1.serializers import ServiceSerializer
 
 
-class ServiceViewset(viewsets.ReadOnlyModelViewSet):
+class ServiceViewset(viewsets.ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
     permission_classes = [ServicePermission]

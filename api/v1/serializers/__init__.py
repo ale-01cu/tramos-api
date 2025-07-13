@@ -13,5 +13,6 @@ from .ClassroomSerializer import ClassroomSerializer
 from .CourseSerializer import CourseSerializer
 from .OfferSerializer import OfferSerializer
 from .OfferCreateSerializer import OfferCreateSerializer
-from .OfferAvailabilitySerializer import OfferAvailabilitySerializer
+from .OfferAvailabilitySerializer import OfferAvailabilitySerializer, OfferAvailabilityCreateWithOfferSerializer
 from .MultipleBookingSerializer import MultipleBookingSerializer
+from .BookingSerializer import BookingSerializer, BookingCreateSerializer

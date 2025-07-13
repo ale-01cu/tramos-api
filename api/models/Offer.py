@@ -11,7 +11,7 @@ class Offer(models.Model):
     date_end_course = models.DateTimeField()
     date_start_offer = models.DateTimeField()
     date_end_offer = models.DateTimeField()
-    priceToPay = models.DecimalField(max_digits=10, decimal_places=2)
+    # priceToPay = models.DecimalField(max_digits=10, decimal_places=2)
     company = models.ForeignKey(Company, related_name='offers', on_delete=models.SET_NULL, blank=True, null=True)
 
     def __str__(self):

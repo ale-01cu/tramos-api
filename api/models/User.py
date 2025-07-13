@@ -19,7 +19,7 @@ class User(AbstractUser):
     email = models.EmailField(blank=True, null=True)
     full_name = models.CharField(default='Nombre Completo', max_length=100)
     school = models.ForeignKey(School, related_name='users', on_delete=models.SET_NULL, blank=True, null=True)
-    rol = models.CharField(choices=ROLE_CHOICES, max_length=20, blank=False, null=False, default='observador')
+    role = models.CharField(choices=ROLE_CHOICES, max_length=20, blank=False, null=False, default='observador')
 
     class Meta:
         verbose_name = 'Usuario'

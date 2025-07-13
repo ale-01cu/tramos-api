@@ -14,11 +14,11 @@ class ServiceField(serializers.CharField):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(read_only=True)
-    description = serializers.CharField(read_only=True)
+    # name = serializers.CharField(read_only=True)
+    # description = serializers.CharField(read_only=True)
     paymentCOde = serializers.IntegerField(read_only=True)
     rank = serializers.IntegerField(read_only=True)
-    service = ServiceField()
+    # service = ServiceField()
 
     class Meta:
         model = Course

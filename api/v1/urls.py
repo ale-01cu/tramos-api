@@ -19,6 +19,7 @@ router.register(r'classroom', ClassroomViewset, basename='aula'),
 router.register(r'course', CourseViewset, basename='curso'),
 router.register(r'offer', OfferViewset, basename='oferta'),
 router.register(r'multipleBooking', MultipleBookingsViewset, basename='ReservaEmpresa'),
+router.register(r'booking', BookingViewset, basename='Reserva'),
 
 
 schema_view = get_schema_view(

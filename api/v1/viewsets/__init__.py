@@ -10,3 +10,4 @@ from .ClassroomViewset import ClassroomViewset
 from .CourseViewset import CourseViewset
 from .OfferViewset import OfferViewset
 from .MultipleBookingsViewset import MultipleBookingsViewset
+from .BookingViewset import BookingViewset

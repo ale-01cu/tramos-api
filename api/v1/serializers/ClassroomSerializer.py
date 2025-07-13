@@ -14,13 +14,13 @@ class MunicipalityField(serializers.CharField):
 
 
 class ClassroomSerializer(serializers.ModelSerializer):
-    name = serializers.CharField()
-    description = serializers.CharField()
-    capacity = serializers.IntegerField()
-    is_available = serializers.BooleanField()
-    address = serializers.CharField()
-    province = serializers.CharField(source='municipality.province.name', required=False)
-    municipality = MunicipalityField()
+    # name = serializers.CharField()
+    # description = serializers.CharField()
+    # capacity = serializers.IntegerField()
+    # is_available = serializers.BooleanField()
+    # address = serializers.CharField()
+    # province = serializers.CharField(source='municipality.province.name', required=False)
+    # municipality = MunicipalityField()
 
     class Meta:
         model = Classroom

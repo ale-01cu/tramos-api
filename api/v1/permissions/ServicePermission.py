@@ -9,7 +9,7 @@ class ServicePermission(permissions.BasePermission):
         if not user.is_authenticated:
             raise exceptions.NotAuthenticated(detail='user is None')
         if view.action in ['list', 'create', 'patch', 'delete', 'list', 'retrieve']:
-            return user.rol == 'admin'
+            return user.role == 'admin'
 
     def has_object_permission(self, request, view, obj):
         if view.action in ['list']:
@@ -17,4 +17,4 @@ class ServicePermission(permissions.BasePermission):
         user = request.user
         if not user.is_authenticated:
             raise exceptions.NotAuthenticated(detail='user is None')
-        return user.rol == 'admin'
+        return user.role == 'admin'

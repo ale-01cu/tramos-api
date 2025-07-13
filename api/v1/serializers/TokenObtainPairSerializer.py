@@ -10,7 +10,7 @@ class TokenObtainPairSerializer(TokenObtainPairSerializer):
         token['user'] = dict(
             username=user.username,
             full_name=user.full_name,
-            rol=user.rol,
+            rol=user.role,
             is_active=user.is_active,
         )
         # terminar de poner los datos q mando del usuario q se autentica

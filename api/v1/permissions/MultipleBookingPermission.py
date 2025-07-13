@@ -11,7 +11,7 @@ class MultipleBookingPermission(permissions.BasePermission):
                 raise exceptions.NotAuthenticated(detail='User is not authenticated')
             if view.action in ['list', 'retrieve']:
                 return user.is_authenticated
-            return user.role == 'gestor'
+            return user.role == 'gestor' or user.role == 'admin'
 
         def has_object_permission(self, request, view, obj):
             if view.action in ['list']:
@@ -21,4 +21,4 @@ class MultipleBookingPermission(permissions.BasePermission):
                 raise exceptions.NotAuthenticated(detail='User is not authenticated')
             if view.action in ['list', 'retrieve']:
                 return user.is_authenticated
-            return user.role == 'gestor'
+            return user.role == 'gestor' or user.role == 'admin'
