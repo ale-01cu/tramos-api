@@ -91,6 +91,7 @@ BASE_APPS = [
 
 LOCAL_APPS = [
     'api.apps.ApiConfig',
+    'tramos_api.apps.CoreConfig'
 ]
 
 THIRD_APPS = [
