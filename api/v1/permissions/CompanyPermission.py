@@ -10,9 +10,7 @@ class CompanyPermission(permissions.BasePermission):
         if user is None:
             raise exceptions.NotAuthenticated(detail='User is None')
         if view.action in ['create', 'patch', 'delete', 'list', 'retrieve']:
-            return user.is_authenticated
-
-        return user.role == 'admin'
+            return user.role == 'admin' or user.role == 'gestor' or user.role == 'comercial' or user.role == 'cajero'
 
     def has_object_permission(self, request, view, obj):
         user = request.user
@@ -20,7 +18,7 @@ class CompanyPermission(permissions.BasePermission):
             return True
         if user is None:
             raise exceptions.NotAuthenticated(detail='user is None')
-        return user.role == 'admin'
+        return user.role == 'admin' or user.role == 'gestor' or user.role == 'comercial' or user.role == 'cajero'
 
 
 

@@ -3,3 +3,4 @@ from .ServicePermission import ServicePermission
 from .CoursePermission import CoursePermission
 from .OfferPermission import OfferPermission
 from .MultipleBookingPermission import MultipleBookingPermission
+from .ClassroomPermission import ClassroomPermission

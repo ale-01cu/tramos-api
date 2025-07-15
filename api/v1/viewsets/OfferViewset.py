@@ -2,7 +2,7 @@ from datetime import timedelta
 
 from django.db import transaction
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, permissions
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
@@ -14,7 +14,7 @@ from api.v1.serializers import OfferSerializer, OfferCreateSerializer
 class OfferViewset(viewsets.ModelViewSet):
     queryset = Offer.objects.all()
     # serializer_class = OfferSerializer
-    permission_classes = (OfferPermission,)
+    permission_classes = (permissions.IsAuthenticated, OfferPermission)
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('classroom', 'description', 'course')
 

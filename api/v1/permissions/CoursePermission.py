@@ -8,8 +8,8 @@ class CoursePermission(permissions.BasePermission):
         user = request.user
         if user is None:
             raise exceptions.NotAuthenticated(detail='User is not authenticated')
-        if view.action in ['list', 'create', 'patch', 'delete', 'list', 'retrieve']:
-            return user.role == 'admin'
+        if view.action in ['list', 'create', 'patch', 'delete', 'retrieve']:
+            return user.role == 'admin' or user.role == 'gestor'
 
     def has_object_permission(self, request, view, obj):
         if view.action in ['list']:
@@ -17,4 +17,4 @@ class CoursePermission(permissions.BasePermission):
         user = request.user
         if user is None:
             raise exceptions.NotAuthenticated(detail='User is None')
-        return user.role == 'admin'
+        return user.role == 'admin' or user.role == 'gestor'

@@ -1,7 +1,7 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, permissions
 from rest_framework.decorators import action
 
 from api.models import Company, MultipleBooking
@@ -13,7 +13,7 @@ from api.v1.serializers.LoginCompanySerializer import LoginCompanySerializer
 class CompanyViewset(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
-    permission_classes = [CompanyPermission, ]
+    permission_classes = [permissions.IsAuthenticated, CompanyPermission]
     filter_backends = [DjangoFilterBackend, ]
     filterset_fields = ['name', 'description', 'contract']
 

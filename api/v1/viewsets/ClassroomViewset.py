@@ -4,12 +4,13 @@ from rest_framework.exceptions import ValidationError
 
 from api.models import Classroom
 from api.v1.serializers import ClassroomSerializer
+from api.v1.permissions import ClassroomPermission
 
 
 class ClassroomViewset(viewsets.ModelViewSet):
     queryset = Classroom.objects.all()
     serializer_class = ClassroomSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, ClassroomPermission]
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = ['name', 'school']
 

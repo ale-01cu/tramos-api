@@ -11,7 +11,7 @@ class Classroom(models.Model):
     school = models.ForeignKey(School, related_name='classrooms', on_delete=models.CASCADE)
     address = models.CharField(max_length=100)
     # province = models.ForeignKey(Province, related_name='classrooms', on_delete=models.CASCADE)
-    municipality = models.ForeignKey(Municipality, related_name='classrooms', on_delete=models.CASCADE)
+    # municipality = models.ForeignKey(Municipality, related_name='classrooms', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

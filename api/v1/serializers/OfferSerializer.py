@@ -1,15 +1,16 @@
 from rest_framework import serializers
 
 from api.models import Offer, OfferAvailability
-
+from api.v1.serializers import ClassroomSerializer, CourseSerializer
 
 class OfferSerializer(serializers.ModelSerializer):
-
-    classroom = serializers.CharField(source='classroom.name')
-    date_start_course = serializers.DateField()
-    availability = serializers.SerializerMethodField()
-    company = serializers.CharField(source='company.name', allow_blank=True, allow_null=True)
-    description = serializers.CharField(max_length=250)
+    classroom = ClassroomSerializer(read_only=True)
+    course = CourseSerializer(read_only=True)
+    # classroom = serializers.CharField(source='classroom.name')
+    # date_start_course = serializers.DateField()
+    # availability = serializers.SerializerMethodField()
+    # company = serializers.CharField(source='company.name', allow_blank=True, allow_null=True)
+    # description = serializers.CharField(max_length=250)
 
     @staticmethod
     def get_availability(offer):

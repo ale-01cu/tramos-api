@@ -10,3 +10,9 @@
 - Municipality List
 - School Create
 - School list
+
+
+
+Para hacer
+Hacer las Trazas
+Probar los Permisos
