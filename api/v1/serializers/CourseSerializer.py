@@ -2,7 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from api.models import Course, Service
-
+from api.v1.serializers.PaymentCodeSerializer import PaymentCodeSerializer
+from api.models.PaymentCode import PaymentCode
 
 class ServiceField(serializers.CharField):
 
@@ -18,8 +19,18 @@ class CourseSerializer(serializers.ModelSerializer):
     # description = serializers.CharField(read_only=True)
     paymentCOde = serializers.IntegerField(read_only=True)
     rank = serializers.IntegerField(read_only=True)
+    paymentCode = serializers.PrimaryKeyRelatedField(queryset=PaymentCode.objects.all())
     # service = ServiceField()
 
     class Meta:
         model = Course
         fields = '__all__'
+
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        # Si el campo existe y está presente, reemplazamos el ID por el JSON completo
+        if hasattr(instance, 'paymentCode') and instance.paymentCode:
+            data['paymentCode'] = PaymentCodeSerializer(instance.paymentCode).data
+        return data

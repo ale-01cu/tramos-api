@@ -7,7 +7,7 @@ class ActionTraces(models.Model):
     model_name = models.CharField(max_length=100)
     row_id = models.IntegerField()
     action = models.CharField(max_length=100)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     changes = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
 

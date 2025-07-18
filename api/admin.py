@@ -17,5 +17,6 @@ admin.site.register(Dutiesrigths)
 admin.site.register(Offer)
 admin.site.register(Course)
 admin.site.register(ActionTraces)
+admin.site.register(PaymentCode)
 
 

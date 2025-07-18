@@ -14,3 +14,4 @@ from .MultipleBooking import MultipleBooking
 from .Booking import Booking
 from .ClientClasses import ClientClasses
 from .Dutiesrigths import Dutiesrigths
+from .PaymentCode import PaymentCode

@@ -2,7 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from api.models import School, Municipality
-
+from api.v1.serializers.PaymentCodeSerializer import PaymentCodeSerializer
+from api.models.PaymentCode import PaymentCode
 
 class MunicipalityField(serializers.CharField):
 
@@ -17,7 +18,7 @@ class SchoolSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=100)
     address = serializers.CharField(max_length=200)
     providerNumber = serializers.IntegerField()
-    paymentCode = serializers.CharField()
+    paymentCode = PaymentCodeSerializer(read_only=True)
     municipality = MunicipalityField()
     province = serializers.CharField(source='municipality.province.name', read_only=True)
 
@@ -29,13 +30,21 @@ class SchoolCreateSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=100)
     address = serializers.CharField(max_length=200)
     providerNumber = serializers.IntegerField()
-    paymentCode = serializers.CharField()
     # municipality = MunicipalityField()
+    paymentCode = serializers.PrimaryKeyRelatedField(queryset=PaymentCode.objects.all())
     province = serializers.CharField(source='municipality.province.name', read_only=True)
 
     class Meta:
         model = School
         fields = '__all__'
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        # Si el campo existe y está presente, reemplazamos el ID por el JSON completo
+        if hasattr(instance, 'paymentCode') and instance.paymentCode:
+            data['paymentCode'] = PaymentCodeSerializer(instance.paymentCode).data
+        return data
 
 
 

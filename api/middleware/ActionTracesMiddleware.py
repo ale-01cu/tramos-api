@@ -3,7 +3,7 @@ from django.utils import timezone
 from api.models import ActionTraces
 from django.urls import resolve
 
-ignored_paths = ('/admin/', '/static/', '/api/docs/', '/v1/token/')
+ignored_paths = ('/admin/', '/static/', '/api/docs/', '/v1/token/', '/favicon.ico', '/api/schema')
 
 class ActionTracesMiddleware(MiddlewareMixin):
     def process_request(self, request):
@@ -35,7 +35,7 @@ class ActionTracesMiddleware(MiddlewareMixin):
                 model_name=model_name,
                 row_id=0,  # No tenemos ID aún
                 action=f"{method} request",
-                user=user,
+                user=user if user else None,
                 changes={
                     'path': path,
                     'status_code': response.status_code,

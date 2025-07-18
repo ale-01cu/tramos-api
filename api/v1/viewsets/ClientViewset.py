@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from api.models import Client, Booking
 from api.v1.filters import ClientFilter
 from api.v1.serializers import ClientSerializer
-from api.v1.permissions import ClientPermission
+from api.v1.permissions.ClientPermission import ClientPermission
 
 class ClientViewset(viewsets.ReadOnlyModelViewSet):
     queryset = Client.objects.all()
