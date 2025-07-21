@@ -12,3 +12,5 @@ from .OfferViewset import OfferViewset
 from .MultipleBookingsViewset import MultipleBookingsViewset
 from .BookingViewset import BookingViewset
 from .OfferViewset import OfferListView
+from .ReportViews import CourseReportView
+from .ClientClassesViewset import ClientClassesViewset

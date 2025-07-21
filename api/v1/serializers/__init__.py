@@ -16,3 +16,5 @@ from .OfferCreateSerializer import OfferCreateSerializer
 from .OfferAvailabilitySerializer import OfferAvailabilitySerializer, OfferAvailabilityCreateWithOfferSerializer
 from .MultipleBookingSerializer import MultipleBookingSerializer
 from .BookingSerializer import BookingSerializer, BookingCreateSerializer
+from .ReportSerializer import ReportClientSerializer, ReportOfferDetailSerializer, ReportBookingSerializer
+from .ClientClassesSerializer import ClientClassesSerializer

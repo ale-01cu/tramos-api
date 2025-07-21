@@ -13,6 +13,7 @@ router.register(r'service', ServiceViewset, basename='servicio'),
 router.register(r'municipality', MunicipalityViewset, basename='municipio'),
 router.register(r'school', SchoolViewset, basename='escuela'),
 router.register(r'client', ClientViewset, basename='cliente'),
+router.register(r'client-classes', ClientClassesViewset, basename='cliente-classes'),
 router.register(r'company', CompanyViewset, basename='empresa'),
 router.register(r'dutiesrigths', DutiesrigthsViewset, basename='deberesYderechos'),
 router.register(r'classroom', ClassroomViewset, basename='aula'),
@@ -35,7 +36,8 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     re_path('', include(router.urls)),
-    re_path('current-offer/', OfferListView.as_view(), name='offer-list'),
+    re_path('reports/offer/current', OfferListView.as_view(), name='offer-list'),
+    re_path('reports/course-evaluation/', CourseReportView.as_view(), name='course-report'),
     re_path('swagger(?P<format>.json|.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path('swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path('redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

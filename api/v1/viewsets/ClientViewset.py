@@ -11,7 +11,7 @@ from api.v1.filters import ClientFilter
 from api.v1.serializers import ClientSerializer
 from api.v1.permissions.ClientPermission import ClientPermission
 
-class ClientViewset(viewsets.ReadOnlyModelViewSet):
+class ClientViewset(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     permission_classes = [permissions.IsAuthenticated, ClientPermission]
