@@ -1,12 +1,9 @@
-from datetime import timedelta
-
 from django.db import transaction
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, status, permissions
-from rest_framework.exceptions import ValidationError
+from rest_framework import viewsets, status, permissions, generics
 from rest_framework.response import Response
 
-from api.models import Offer, OfferAvailability, Course, Classroom
+from api.models import Offer, OfferAvailability, Course, Classroom, Company
 from api.v1.permissions import OfferPermission
 from api.v1.serializers import OfferSerializer, OfferCreateSerializer
 
@@ -30,13 +27,13 @@ class OfferViewset(viewsets.ModelViewSet):
         return OfferSerializer  # Usa este para leer datos
 
 
-    def get_queryset(self):
-        queryset = self.queryset
-        course = self.request.query_params.get('course', None)
-        if not course:
-            raise ValidationError('Course is required')
-        queryset = queryset.filter(course=course)
-        return queryset
+    # def get_queryset(self):
+    #     queryset = self.queryset
+    #     course = self.request.query_params.get('course', None)
+    #     if not course:
+    #         raise ValidationError('Course is required')
+    #     queryset = queryset.filter(course=course)
+    #     return queryset
 
     @transaction.atomic
     def create(self, request, *args, **kwargs):
@@ -58,6 +55,7 @@ class OfferViewset(viewsets.ModelViewSet):
 
         course = Course.objects.get(id=course)
         classroom = Classroom.objects.get(id=classroom)
+        company = Company.objects.get(id=company)
 
         try:
             offer = Offer.objects.create(
@@ -94,5 +92,42 @@ class OfferViewset(viewsets.ModelViewSet):
         self.perform_destroy(instance)
         return Response({'detail': 'offer deleted'})
 
+from drf_spectacular.utils import extend_schema, OpenApiParameter
+from drf_spectacular.types import OpenApiTypes
 
+@extend_schema(
+    # Añadimos la descripción del parámetro que queremos documentar
+    parameters=[
+        OpenApiParameter(
+            name='school_id',
+            description='Filtrar ofertas por el ID de la escuela a la que pertenecen.',
+            required=False,
+            type=OpenApiTypes.INT # O simplemente type=int
+        ),
+    ]
+)
+class OfferListView(generics.ListAPIView):
+    """
+    Vista para listar ofertas.
+    Permite filtrar por escuela a través de un query param: /api/ofertas/?school_id=ID_DE_LA_ESCUELA
+    """
+    serializer_class = OfferSerializer
 
+    def get_queryset(self):
+        """
+        Sobrescribimos este método para filtrar el queryset base.
+        """
+        # El queryset base son todas las ofertas.
+        queryset = Offer.objects.all()
+
+        # Obtenemos el 'school_id' de los parámetros de la URL.
+        school_id = self.request.query_params.get('school_id', None)
+
+        # Si se proporcionó un school_id, filtramos el queryset.
+        if school_id is not None:
+            # ¡Aquí está la magia!
+            # Usamos `distinct()` para evitar resultados duplicados si las relaciones
+            # fueran más complejas (es una buena práctica).
+            queryset = queryset.filter(classroom__school__id=school_id).distinct()
+
+        return queryset
