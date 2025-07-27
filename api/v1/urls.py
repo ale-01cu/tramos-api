@@ -38,6 +38,8 @@ urlpatterns = [
     re_path('', include(router.urls)),
     re_path('reports/offer/current', OfferListView.as_view(), name='offer-list'),
     re_path('reports/course-evaluation/', CourseReportView.as_view(), name='course-report'),
+    re_path('payment/register/', PaymentAPIView.as_view(), name='payment-register'),
+    re_path('payment/notification/', PaymentNotificationAPIView.as_view(), name='payment-notification'),
     re_path('swagger(?P<format>.json|.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path('swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     re_path('redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),

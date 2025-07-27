@@ -204,3 +204,13 @@ SPECTACULAR_SETTINGS = {
     # ],
     # OTHER SETTINGS
 }
+
+TM_BASE_URL = "https://200.13.144.60:15000" if not DEBUG else 'https://152.206.64.213:15001'
+TM_SOURCE = "Tramos"
+TM_CONNECTION = f"{TM_BASE_URL}/RestExternalPayment.svc/"
+TM_URL_RESPONSE_TRANSFERMOVIL = "https://190.107.15.68:443/tramosapi/api/transfermovil/notificationpayment"
+TIME_TO_PAYMENT = 0
+TM_USERNAME = "tramos"
+TM_SEED = "externalpayment"
+TM_CURRENCY = "CUP"
+

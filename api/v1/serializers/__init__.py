@@ -18,3 +18,4 @@ from .MultipleBookingSerializer import MultipleBookingSerializer
 from .BookingSerializer import BookingSerializer, BookingCreateSerializer
 from .ReportSerializer import ReportClientSerializer, ReportOfferDetailSerializer, ReportBookingSerializer
 from .ClientClassesSerializer import ClientClassesSerializer
+from .PaymentSerializer import PaymentSerializer, TransfermovilCallbackSerializer
