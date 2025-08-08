@@ -5,12 +5,14 @@ from rest_framework.decorators import action
 
 from api.models import User
 from api.v1.serializers import UserSerializer, ChangePasswordSerializer, UserCreateSerializer, UserUpdateSerializer
+from api.v1.pagination import PaginationCursorPagination
 
 
 class UserViewset(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
+    pagination_class = PaginationCursorPagination
 
     def partial_update(self, request, *args, **kwargs):
         user = request.user

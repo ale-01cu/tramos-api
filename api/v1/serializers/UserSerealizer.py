@@ -30,12 +30,14 @@ class UserCreateSerializer(serializers.ModelSerializer):
         )]
     )
     id = serializers.IntegerField(read_only=True)
+    created_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = User
         fields = ('id', 'rol', 'full_name', 'username', 'password',
                   'email', 'school', 'is_superuser', 'is_staff',
-                  'is_active')
+                  'is_active', 'created_at')
+        read_only_fields = ['created_at']
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):

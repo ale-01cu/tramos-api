@@ -4,12 +4,14 @@ from rest_framework.exceptions import ValidationError
 from api.models import MultipleBooking
 from api.v1.permissions import MultipleBookingPermission
 from api.v1.serializers import MultipleBookingSerializer
+from api.v1.pagination import PaginationCursorPagination
 
 
 class MultipleBookingsViewset(viewsets.ModelViewSet):
     model = MultipleBooking
     serializer_class = MultipleBookingSerializer
     permission_classes = [MultipleBookingPermission]
+    pagination_class = PaginationCursorPagination
 
     def get_queryset(self):
         queryset = self.queryset

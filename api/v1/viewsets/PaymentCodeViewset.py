@@ -1,12 +1,11 @@
 from rest_framework import viewsets, permissions
-
-from api.models import Province
-from api.v1.serializers import ProvinceSerializer
+from api.v1.serializers import PaymentCodeSerializer
 from api.v1.pagination import PaginationCursorPagination
 
-class ProvinceViewset(viewsets.ModelViewSet):
-    queryset = Province.objects.all()
-    serializer_class = ProvinceSerializer
+
+class PaymentCodeViewset(viewsets.ModelViewSet):
+    queryset = PaymentCodeSerializer.Meta.model.objects.all()
+    serializer_class = PaymentCodeSerializer
     permission_classes = [permissions.IsAuthenticated]
     ordering_fields = '__all__'
     pagination_class = PaginationCursorPagination

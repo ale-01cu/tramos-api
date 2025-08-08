@@ -29,6 +29,7 @@ class Booking(models.Model):
     isPaid = models.BooleanField(default=False)
     transactionCode = models.CharField(max_length=100)
     versatCode = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
         # Esta condición `not self.pk` verifica si el objeto es nuevo (aún no tiene una clave primaria).

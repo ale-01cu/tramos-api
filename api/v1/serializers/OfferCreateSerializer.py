@@ -24,12 +24,14 @@ from datetime import datetime
 
 class OfferCreateSerializer(serializers.ModelSerializer):
     availability = OfferAvailabilityCreateWithOfferSerializer()
+    created_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Offer
         fields = ['course', 'classroom', 'description', 'availability',
                   'date_start_course', 'date_end_course',
-                  'date_start_offer', 'date_end_offer', 'company']
+                  'date_start_offer', 'date_end_offer', 'company', 'created_at']
+        read_only_fields = ['created_at']
         # extra_kwargs = {'price': {'required': True}}
 
     def validate(self, data):

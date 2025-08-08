@@ -21,6 +21,8 @@ class ClassroomSerializer(serializers.ModelSerializer):
     # address = serializers.CharField()
     # province = serializers.CharField(source='municipality.province.name', required=False)
     # municipality = MunicipalityField()
+    created_at = serializers.DateTimeField(read_only=True)
+
 
     class Meta:
         model = Classroom

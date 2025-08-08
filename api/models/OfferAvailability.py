@@ -9,6 +9,7 @@ class OfferAvailability(models.Model):
     # time = models.CharField(max_length=24)
     availability = models.IntegerField(default=0)
     group_code = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = _('Disponibilidad')

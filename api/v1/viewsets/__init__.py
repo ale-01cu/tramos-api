@@ -15,3 +15,4 @@ from .OfferViewset import OfferListView
 from .ReportViews import CourseReportView
 from .ClientClassesViewset import ClientClassesViewset
 from .PaymentlView import PaymentAPIView, PaymentNotificationAPIView
+from .PaymentCodeViewset import PaymentCodeViewset

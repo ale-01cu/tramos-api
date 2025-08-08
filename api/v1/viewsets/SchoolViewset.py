@@ -4,6 +4,7 @@ from rest_framework import viewsets, permissions
 from api.models import School
 from api.v1.filters import SchoolFilter
 from api.v1.serializers import SchoolSerializer, SchoolCreateSerializer
+from api.v1.pagination import PaginationCursorPagination
 
 
 class SchoolViewset(viewsets.ModelViewSet):
@@ -12,6 +13,7 @@ class SchoolViewset(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     filter_backends = [DjangoFilterBackend]
     filterset_class = SchoolFilter
+    pagination_class = PaginationCursorPagination
 
     def get_serializer_class(self):
         """

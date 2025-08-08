@@ -13,6 +13,7 @@ class Course(models.Model):
     service = models.ForeignKey(Service, related_name='courses', on_delete=models.SET_NULL, null=True)
     bookingCode = models.CharField(max_length=100)
     dependencyCourseId = models.CharField(unique=True, max_length=100, null=True , blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from api.models import Offer, OfferAvailability, Course, Classroom, Company
 from api.v1.permissions import OfferPermission
 from api.v1.serializers import OfferSerializer, OfferCreateSerializer
-
+from api.v1.pagination import PaginationCursorPagination
 
 class OfferViewset(viewsets.ModelViewSet):
     queryset = Offer.objects.all()
@@ -14,6 +14,7 @@ class OfferViewset(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated, OfferPermission)
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('classroom', 'description', 'course')
+    pagination_class = PaginationCursorPagination
 
     def get_serializer_class(self):
         """
@@ -107,6 +108,7 @@ from drf_spectacular.types import OpenApiTypes
     ]
 )
 class OfferListView(generics.ListAPIView):
+    pagination_class = PaginationCursorPagination
     """
     Vista para listar ofertas.
     Permite filtrar por escuela a través de un query param: /api/ofertas/?school_id=ID_DE_LA_ESCUELA

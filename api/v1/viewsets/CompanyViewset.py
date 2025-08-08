@@ -8,6 +8,7 @@ from api.models import Company, MultipleBooking
 from api.v1.permissions.CompanyPermission import CompanyPermission
 from api.v1.serializers.CompanySerializer import CompanySerializer
 from api.v1.serializers.LoginCompanySerializer import LoginCompanySerializer
+from api.v1.pagination import PaginationCursorPagination
 
 
 class CompanyViewset(viewsets.ModelViewSet):
@@ -16,6 +17,7 @@ class CompanyViewset(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, CompanyPermission]
     filter_backends = [DjangoFilterBackend, ]
     filterset_fields = ['name', 'description', 'contract']
+    pagination_class = PaginationCursorPagination
 
     @action(detail=False, methods=['POST'], serializer_class=LoginCompanySerializer)
     def login_company(self, request):

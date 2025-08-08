@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError
 from api.models import Course
 from api.v1.permissions import CoursePermission
 from api.v1.serializers import CourseSerializer
+from api.v1.pagination import PaginationCursorPagination
 
 
 class CourseViewset(viewsets.ModelViewSet):
@@ -13,6 +14,7 @@ class CourseViewset(viewsets.ModelViewSet):
     permission_classes = [CoursePermission]
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ['name']
+    pagination_class = PaginationCursorPagination
 
     def get_queryset(self):
         queryset = self.queryset

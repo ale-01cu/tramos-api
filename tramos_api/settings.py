@@ -181,6 +181,13 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.CursorPagination',
+    # 'PAGE_SIZE': 50,
+    # 'DEFAULT_CURSOR_PAGINATION': {
+    #     'ordering': '-created_at',  # Campo para ordenar (requerido)
+    #     'page_size': 50,            # Equivalente a PAGE_SIZE
+    #     'cursor_query_param': 'cursor',  # Parámetro de URL (opcional)
+    # }
 }
 
 SIMPLE_JWT = {

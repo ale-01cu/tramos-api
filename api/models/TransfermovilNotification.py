@@ -12,13 +12,8 @@ class TransfermovilNotificationResponse(models.Model):
     status = models.IntegerField()
     bank = models.IntegerField(null=True, blank=True)
     paid = models.DecimalField(max_digits=10, decimal_places=2)
-    created_at = models.DateTimeField(auto_now_add=True)
-    full_name = models.CharField(max_length=255)
-    classroom_name = models.CharField(max_length=255)
-    client_ci = models.CharField(max_length=20)
-    date_start = models.DateTimeField()
-    schedule_time = models.CharField(max_length=50)
     is_pending = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = "Notificación de Transfermóvil"

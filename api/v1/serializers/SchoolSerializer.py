@@ -30,9 +30,16 @@ class SchoolCreateSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=100)
     address = serializers.CharField(max_length=200)
     providerNumber = serializers.IntegerField()
-    # municipality = MunicipalityField()
+    # municipality = serializers.SerializerMethodField(read_only=True)
+    municipality = MunicipalityField(read_only=True)
+    municipality_id = serializers.PrimaryKeyRelatedField(
+        queryset=Municipality.objects.all(),
+        source='municipality',  # Mapea al campo del modelo
+        write_only=True  # Solo para escritura, no aparece en respuestas
+    )
     paymentCode = serializers.PrimaryKeyRelatedField(queryset=PaymentCode.objects.all())
     province = serializers.CharField(source='municipality.province.name', read_only=True)
+    created_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = School

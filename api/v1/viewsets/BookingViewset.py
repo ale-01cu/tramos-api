@@ -4,6 +4,7 @@ from rest_framework import viewsets, permissions, filters
 from api.models import Booking
 from api.v1.serializers import BookingSerializer, BookingCreateSerializer
 from api.v1.filters.BookingFilter import BookingFilter
+from api.v1.pagination import PaginationCursorPagination
 
 
 class BookingViewset(viewsets.ModelViewSet):
@@ -14,6 +15,7 @@ class BookingViewset(viewsets.ModelViewSet):
     # filterset_fields = ['name', 'school']
     # En lugar de filterset_fields, ahora usas filterset_class
     filterset_class = BookingFilter
+    pagination_class = PaginationCursorPagination
 
     def get_serializer_class(self):
         """

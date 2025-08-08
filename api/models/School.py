@@ -11,6 +11,7 @@ class School(models.Model):
     address = models.CharField(max_length=250)
     municipality = models.ForeignKey(Municipality, related_name='schools', on_delete=models.CASCADE)
     date = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

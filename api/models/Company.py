@@ -13,6 +13,7 @@ class Company(models.Model):
     dateContractStart = models.DateField()
     dateContractFinish = models.DateField()
     school = models.ForeignKey(School, related_name='companys', on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

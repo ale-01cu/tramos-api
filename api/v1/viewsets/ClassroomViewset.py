@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError
 from api.models import Classroom
 from api.v1.serializers import ClassroomSerializer
 from api.v1.permissions import ClassroomPermission
+from api.v1.pagination import PaginationCursorPagination
 
 
 class ClassroomViewset(viewsets.ModelViewSet):
@@ -13,6 +14,7 @@ class ClassroomViewset(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, ClassroomPermission]
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = ['name', 'school']
+    pagination_class = PaginationCursorPagination
 
     def get_queryset(self):
         queryset = self.queryset

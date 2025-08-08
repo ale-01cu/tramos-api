@@ -37,6 +37,7 @@ class Client(models.Model):
     position = models.CharField(max_length=50, blank=True, null=True)
     tcp_category = models.CharField(choices=TCP_CHOICES, blank=True, null=True)
     ocupational_category = models.CharField(choices=CATEGORY_CHOICES, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return '{} {}'.format(self.name, self.last_name)

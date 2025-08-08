@@ -13,12 +13,13 @@ class BookingSerializer(serializers.ModelSerializer):
 
 class BookingCreateSerializer(serializers.ModelSerializer):
     client = ClientRelatedField(queryset=Client.objects.all())
+    created_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Booking
         fields = ('client', 'offer', 'typePayment',
-                  'offerAvailability')
-        read_only_fields = ('expirationDate', 'registeredDate')
+                  'offerAvailability', 'created_at')
+        read_only_fields = ('expirationDate', 'registeredDate', 'created_at')
 
     def validate(self, data):
         offer = data.get('offer')

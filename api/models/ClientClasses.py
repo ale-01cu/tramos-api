@@ -18,4 +18,5 @@ class ClientClasses(models.Model):
     number = models.IntegerField(null=True, blank=True)
     registryNumber = models.IntegerField(null=True, blank=True)
     documentRegistry = models.CharField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 

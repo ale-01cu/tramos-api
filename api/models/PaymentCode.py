@@ -3,6 +3,7 @@ from django.db import models
 
 class PaymentCode(models.Model):
     code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Código de Pago'

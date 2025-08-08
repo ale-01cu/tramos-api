@@ -3,6 +3,7 @@ from rest_framework import viewsets, permissions
 from api.models import Service
 from api.v1.permissions import ServicePermission
 from api.v1.serializers import ServiceSerializer
+from api.v1.pagination import PaginationCursorPagination
 
 
 class ServiceViewset(viewsets.ModelViewSet):

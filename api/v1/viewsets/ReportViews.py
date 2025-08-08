@@ -51,6 +51,8 @@ REPORT_TYPES = ['asistencia', 'comparecencia', 'comparecencia_todo', 'hoja_de_re
     ]
 )
 class CourseReportView(APIView):
+
+
     def get(self, request, *args, **kwargs):
         # 1. Obtener y validar parámetros de la URL
         report_type = request.query_params.get('report_type')

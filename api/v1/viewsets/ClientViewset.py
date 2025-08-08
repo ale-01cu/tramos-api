@@ -10,6 +10,7 @@ from api.models import Client, Booking
 from api.v1.filters import ClientFilter
 from api.v1.serializers import ClientSerializer
 from api.v1.permissions.ClientPermission import ClientPermission
+from api.v1.pagination import PaginationCursorPagination
 
 class ClientViewset(viewsets.ModelViewSet):
     queryset = Client.objects.all()
@@ -17,6 +18,7 @@ class ClientViewset(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, ClientPermission]
     filter_backends = [DjangoFilterBackend]
     filterset_class = ClientFilter
+    pagination_class = PaginationCursorPagination
 
     def get_queryset(self):
         user = self.request.user

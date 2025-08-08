@@ -21,6 +21,7 @@ class CourseSerializer(serializers.ModelSerializer):
     rank = serializers.IntegerField(read_only=True)
     paymentCode = serializers.PrimaryKeyRelatedField(queryset=PaymentCode.objects.all())
     # service = ServiceField()
+    created_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Course

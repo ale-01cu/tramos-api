@@ -12,6 +12,9 @@ class MunicipalitySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class MunicipalityCreateSerializer(serializers.ModelSerializer):
+    province = ProvinceSerializer(read_only=True)
+    created_at = serializers.DateTimeField(read_only=True)
+
     class Meta:
         model = Municipality
         fields = '__all__'

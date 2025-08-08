@@ -11,7 +11,9 @@ class OfferAvailabilitySerializer(serializers.ModelSerializer):
 
 class OfferAvailabilityCreateWithOfferSerializer(serializers.ModelSerializer):
     # time = serializers.CharField(required=True)
+    created_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = OfferAvailability
-        fields = ('time', 'availability', 'group_code')
+        fields = ('time', 'availability', 'group_code', 'created_at')
+        read_only_fields = ['created_at']

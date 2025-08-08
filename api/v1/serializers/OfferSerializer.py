@@ -12,6 +12,7 @@ class OfferSerializer(serializers.ModelSerializer):
     # availability = serializers.SerializerMethodField()
     # company = serializers.CharField(source='company.name', allow_blank=True, allow_null=True)
     # description = serializers.CharField(max_length=250)
+    created_at = serializers.DateTimeField(read_only=True)
 
     @staticmethod
     def get_availability(offer):

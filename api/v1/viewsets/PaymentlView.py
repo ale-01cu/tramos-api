@@ -7,6 +7,7 @@ from api.transfermovil_payment import register  # Asumiendo que tu funci√≥n est√
 from django.conf import settings
 from datetime import datetime
 import hashlib, base64, requests, json
+from api.models.TransfermovilNotification import TransfermovilNotificationResponse
 
 class PaymentAPIView(APIView):
     serializer_class = PaymentSerializer
@@ -25,6 +26,19 @@ class PaymentAPIView(APIView):
         success, qr_data, order_data = register(amount, phone_number, external_id)
 
         if success:
+            TransfermovilNotificationResponse.objects.create(
+                source=settings.TM_SOURCE,
+                bank_id=settings.TM_USERNAME,
+                tm_id=order_data,
+                phone=phone_number,
+                msg="Pago Realizado",
+                external_id=external_id,
+                status=3,
+                bank=None,
+                paid=amount,
+                is_pending=True
+            )
+
             response_data = {
                 'status': 'success',
                 'qr_data': qr_data,

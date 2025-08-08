@@ -20,6 +20,7 @@ class User(AbstractUser):
     full_name = models.CharField(default='Nombre Completo', max_length=100)
     school = models.ForeignKey(School, related_name='users', on_delete=models.SET_NULL, blank=True, null=True)
     role = models.CharField(choices=ROLE_CHOICES, max_length=20, blank=False, null=False, default='observador')
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = 'Usuario'

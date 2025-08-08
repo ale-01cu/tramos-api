@@ -10,11 +10,12 @@ class ClientSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField()
     ci = serializers.CharField()
     sex = serializers.BooleanField()
+    created_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Client
-        fields = ['id', 'name', 'last_name', 'phone_number', 'email', 'sex', 'ci', 'code']
-        # read_only_fields = ['code']
+        fields = ['id', 'name', 'last_name', 'phone_number', 'email', 'sex', 'ci', 'code', 'created_at']
+        read_only_fields = ['created_at']
 
 
 class ClientRelatedField(serializers.RelatedField):
