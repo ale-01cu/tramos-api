@@ -16,18 +16,18 @@ services:
         value: "*.onrender.com,.render.com"
       - key: DATABASE_URL
         fromDatabase:
-          name: tramos_db
+          name: tramos_db_f0cg
           property: connectionString
       - key: ENVIRONMENT
         value: "production"
 
 databases:
-  - name: tramos_db
+  - name: tramos_db_f0cg
     engine: postgresql
     version: "16"
     user: admin
-    host: dpg-d1q2jmje5dus73dhgir0-a
+    host: dpg-d2e96dgdl3ps738hs130-a
     port: 5432
-    dbName: tramos_db
+    dbName: tramos_db_f0cg
     password:
       fromGroup: postgres
