@@ -3,10 +3,11 @@ from rest_framework.validators import UniqueValidator
 from api.v1.serializers.SchoolSerializer import SchoolSerializer
 
 from api.models import User
+from api.models.User import ROLE_CHOICES
 
 
 class UserSerializer(serializers.ModelSerializer):
-    rol = serializers.CharField(read_only=True)
+    role = serializers.CharField(read_only=True)
     full_name = serializers.CharField(max_length=100)
     username = serializers.CharField(validators=[
         UniqueValidator(
@@ -21,7 +22,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    rol = serializers.CharField(read_only=True)
+    role = serializers.ChoiceField(choices=ROLE_CHOICES)
     full_name = serializers.CharField(max_length=100)
     username = serializers.CharField(validators=[
         UniqueValidator(
@@ -34,28 +35,26 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'rol', 'full_name', 'username', 'password',
-                  'email', 'school', 'is_superuser', 'is_staff',
-                  'is_active', 'created_at')
+        fields = ('id', 'role', 'full_name', 'username', 'password',
+                  'email', 'school', 'is_active', 'created_at')
         read_only_fields = ['created_at']
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
-    rol = serializers.CharField(read_only=True)
-    full_name = serializers.CharField(max_length=100)
+    role = serializers.ChoiceField(choices=ROLE_CHOICES, required=False)
+    full_name = serializers.CharField(max_length=100, required=False)
     username = serializers.CharField(validators=[
         UniqueValidator(
             queryset=User.objects.all(),
             message="El usuario no puede ser utilizado",
-        )]
+        )], required=False
     )
     id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = User
-        fields = ('id', 'rol', 'full_name', 'username',
-                  'email', 'school', 'is_superuser', 'is_staff',
-                  'is_active')
+        fields = ('id', 'role', 'full_name', 'username',
+                  'email', 'school', 'is_active')
 
 
 
