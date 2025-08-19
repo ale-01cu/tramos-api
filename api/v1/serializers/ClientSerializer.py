@@ -48,3 +48,7 @@ class ClientRelatedField(serializers.RelatedField):
         # Cuando se serializa una reserva para una respuesta, mostramos los datos completos del cliente.
         # 'value' aquí es una instancia del modelo Client.
         return ClientSerializer(value).data
+
+
+class ChangeCodeSerializer(serializers.Serializer):
+    code = serializers.CharField(max_length=4)

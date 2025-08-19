@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 from api.models import Course, Service
 from api.v1.serializers.PaymentCodeSerializer import PaymentCodeSerializer
+from api.v1.serializers import ServiceSerializer
 from api.models.PaymentCode import PaymentCode
 
 class ServiceField(serializers.CharField):
@@ -18,7 +19,7 @@ class CourseSerializer(serializers.ModelSerializer):
     # name = serializers.CharField(read_only=True)
     # description = serializers.CharField(read_only=True)
     paymentCOde = serializers.IntegerField(read_only=True)
-    rank = serializers.IntegerField(read_only=True)
+    rank = serializers.IntegerField()
     paymentCode = serializers.PrimaryKeyRelatedField(queryset=PaymentCode.objects.all())
     # service = ServiceField()
     created_at = serializers.DateTimeField(read_only=True)
@@ -34,4 +35,7 @@ class CourseSerializer(serializers.ModelSerializer):
         # Si el campo existe y está presente, reemplazamos el ID por el JSON completo
         if hasattr(instance, 'paymentCode') and instance.paymentCode:
             data['paymentCode'] = PaymentCodeSerializer(instance.paymentCode).data
+
+        if hasattr(instance, 'service') and instance.service:
+            data['service'] = ServiceSerializer(instance.service).data
         return data

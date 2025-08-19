@@ -8,9 +8,10 @@ from rest_framework.response import Response
 
 from api.models import Client, Booking
 from api.v1.filters import ClientFilter
-from api.v1.serializers import ClientSerializer
+from api.v1.serializers import ClientSerializer, BookingSerializer, ChangeCodeSerializer, PaginatedBookingSerializer
 from api.v1.permissions.ClientPermission import ClientPermission
 from api.v1.pagination import PaginationCursorPagination
+from django.shortcuts import get_object_or_404
 
 class ClientViewset(viewsets.ModelViewSet):
     queryset = Client.objects.all()
@@ -28,27 +29,34 @@ class ClientViewset(viewsets.ModelViewSet):
             queryset = queryset.filter(Q(name__icontains=search) | Q(last_name__icontains=search) | Q(ci__icontains=search))
         return queryset
 
-    @action(detail=True, methods=["patch"])
-    def change_code(self, request):
+    @action(detail=True, methods=["patch"], serializer_class=ChangeCodeSerializer)
+    def change_code(self, request, pk=None):
         user = request.user
-        client = Client.objects.get(pk=request.data['id'])
-        new_code: str = request.query_params.get['code']
+        client = Client.objects.get(pk=pk)
+        new_code: str = request.data.get('code')
         if not (user.is_authenticated and user.role == 'admin'):
             raise Exception('Unauthorized', status.HTTP_401_UNAUTHORIZED)
-        if len(new_code) != 4:
-            raise Exception('Invalid code')
         client.code = new_code
         client.save()
         return Response({'detail': 'Code changed'}, status=status.HTTP_200_OK)
 
-    @action(detail=True, methods=["get"])
-    def bookings(self, request):
-        ci = request.query_params.get('ci')
-        code = request.query_params.get('code')
-        client = Client.objects.get(ci=ci)
-        if client.code != code:
-            raise Exception('Invalid client', status.HTTP_401_UNAUTHORIZED)
-        bookings = Booking.objects.filter(client__ci=ci)
-        bookings = bookings.objects.filter(expirationDate__gte=datetime.now())
-        return Response(bookings, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=["get"], serializer_class=PaginatedBookingSerializer)
+    def bookings(self, request, pk=None):
+        client = get_object_or_404(Client, id=pk)
+
+        bookings = Booking.objects.filter(
+            client=client,
+            expirationDate__gte=datetime.now()
+        )
+
+        # Aplicar paginación
+        paginator = self.paginator  # Usa el paginator definido en tu ViewSet
+        paginated_bookings = paginator.paginate_queryset(bookings, request)
+
+        # Serializar los datos paginados
+        serializer = BookingSerializer(paginated_bookings, many=True)
+
+        # Devolver respuesta paginada
+        return paginator.get_paginated_response(serializer.data)
 

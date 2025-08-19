@@ -21,7 +21,7 @@ class OfferViewset(viewsets.ModelViewSet):
         Determina qué serializador usar basado en la acción.
         """
         # self.action contendrá 'list', 'create', 'retrieve', 'update', 'partial_update'
-        if self.action in ['create', 'update', 'partial_update']:
+        if self.action in ['create']:
             return OfferCreateSerializer  # Usa este para escribir datos
 
         # Para cualquier otra acción ('list', 'retrieve', etc.), usa el serializador por defecto.
@@ -56,7 +56,7 @@ class OfferViewset(viewsets.ModelViewSet):
 
         course = Course.objects.get(id=course)
         classroom = Classroom.objects.get(id=classroom)
-        company = Company.objects.get(id=company)
+        company = Company.objects.get(id=company) if company is not None else None
 
         try:
             offer = Offer.objects.create(
@@ -91,7 +91,7 @@ class OfferViewset(viewsets.ModelViewSet):
         """
         instance = self.get_object()
         self.perform_destroy(instance)
-        return Response({'detail': 'offer deleted'})
+        return Response({'detail': 'offer deleted'}, status=status.HTTP_204_NO_CONTENT)
 
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from drf_spectacular.types import OpenApiTypes

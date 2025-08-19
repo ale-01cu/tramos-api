@@ -14,9 +14,18 @@ class CompanyField(serializers.CharField):
 
 
 class MultipleBookingSerializer(serializers.ModelSerializer):
-    company = CompanyField()
+    # company = CompanyField(read_only=True)
     created_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = MultipleBooking
         fields = '__all__'
+
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        # Si el campo existe y está presente, reemplazamos el ID por el JSON completo
+        if hasattr(instance, 'company') and instance.company:
+            data['company'] = instance.company.name
+        return data

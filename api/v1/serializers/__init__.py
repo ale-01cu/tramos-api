@@ -5,7 +5,7 @@ from .ProvinceSerializer import ProvinceSerializer
 from .MunicipalitySerializer import MunicipalitySerializer, MunicipalityCreateSerializer
 from .ServiceSerializer import ServiceSerializer
 from .SchoolSerializer import SchoolSerializer, SchoolCreateSerializer
-from .ClientSerializer import ClientSerializer
+from .ClientSerializer import ClientSerializer, ChangeCodeSerializer
 from .CompanySerializer import CompanySerializer
 from .LoginCompanySerializer import LoginCompanySerializer
 from .DutiesrigthsSerializer import DutiesrigthsSerializer
@@ -15,7 +15,7 @@ from .OfferSerializer import OfferSerializer
 from .OfferCreateSerializer import OfferCreateSerializer
 from .OfferAvailabilitySerializer import OfferAvailabilitySerializer, OfferAvailabilityCreateWithOfferSerializer
 from .MultipleBookingSerializer import MultipleBookingSerializer
-from .BookingSerializer import BookingSerializer, BookingCreateSerializer
+from .BookingSerializer import BookingSerializer, BookingCreateSerializer, PaginatedBookingSerializer
 from .ReportSerializer import ReportClientSerializer, ReportOfferDetailSerializer, ReportBookingSerializer
 from .ClientClassesSerializer import ClientClassesSerializer
 from .PaymentSerializer import PaymentSerializer, TransfermovilCallbackSerializer

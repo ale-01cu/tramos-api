@@ -1,9 +1,7 @@
 from rest_framework import serializers
-from api.models.OfferAvailability import OfferAvailability
-from api.v1.serializers.OfferAvailabilitySerializer import OfferAvailabilitySerializer, OfferAvailabilityCreateWithOfferSerializer
+from api.v1.serializers.OfferAvailabilitySerializer import OfferAvailabilityCreateWithOfferSerializer
 from datetime import timedelta
 from api.models import Offer
-from datetime import datetime
 
 # class OfferCreateSerializer(serializers.Serializer):
 #     course = CourseSerializer()

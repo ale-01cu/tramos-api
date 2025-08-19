@@ -103,3 +103,9 @@ class BookingCreateSerializer(serializers.ModelSerializer):
                 {'offerAvailability': 'La disponibilidad cambió. Inténtelo de nuevo.'})
 
         return booking_instance
+
+
+class PaginatedBookingSerializer(serializers.Serializer):
+    next = serializers.URLField(allow_null=True)
+    previous = serializers.URLField(allow_null=True)
+    results = BookingSerializer(many=True)

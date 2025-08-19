@@ -10,5 +10,6 @@ class ServiceViewset(viewsets.ModelViewSet):
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
     permission_classes = [permissions.IsAuthenticated, ServicePermission]
+    pagination_class = PaginationCursorPagination
     ordering_fields = '__all__'
 
