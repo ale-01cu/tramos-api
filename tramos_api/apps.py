@@ -20,7 +20,8 @@ class CoreConfig(AppConfig):
                     username=default_username,
                     email=default_email,
                     password=default_password,
-                    role='admin'
+                    role='admin',
+                    is_active=True
                 )
                 print("✅ Superusuario creado automáticamente.")
             else:
