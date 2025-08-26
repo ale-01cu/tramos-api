@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 
-class TransfermovilNotificationResponse(models.Model):
+class TransfermovilNotification(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     source = models.IntegerField()
     bank_id = models.CharField(max_length=255)

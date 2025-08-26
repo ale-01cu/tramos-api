@@ -16,3 +16,4 @@ from .ReportViews import CourseReportView
 from .ClientClassesViewset import ClientClassesViewset
 from .PaymentlView import PaymentAPIView, PaymentNotificationAPIView
 from .PaymentCodeViewset import PaymentCodeViewset
+from .RoleView import RoleListApiView

@@ -20,3 +20,4 @@ from .ReportSerializer import ReportClientSerializer, ReportOfferDetailSerialize
 from .ClientClassesSerializer import ClientClassesSerializer
 from .PaymentSerializer import PaymentSerializer, TransfermovilCallbackSerializer
 from .PaymentCodeSerializer import PaymentCodeSerializer
+from .RoleSerializer import RoleResponseSerializer

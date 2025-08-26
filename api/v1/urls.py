@@ -1,3 +1,5 @@
+from tkinter.font import names
+
 from django.urls import include, re_path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
@@ -37,7 +39,8 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     re_path('', include(router.urls)),
-    re_path('reports/offer/current', OfferListView.as_view(), name='offer-list'),
+    re_path('roles/', RoleListApiView.as_view(), name='roles-list'),
+    re_path('reports/offer/current/', OfferListView.as_view(), name='offer-list'),
     re_path('reports/course-evaluation/', CourseReportView.as_view(), name='course-report'),
     re_path('payment/register/', PaymentAPIView.as_view(), name='payment-register'),
     re_path('payment/notification/', PaymentNotificationAPIView.as_view(), name='payment-notification'),

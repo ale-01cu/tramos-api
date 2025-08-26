@@ -4,11 +4,11 @@ from django.db import models
 from api.models import School
 
 ROLE_CHOICES = (
-    ('admin', 'admin'),
-    ('gestor', 'gestor'),
-    ('comercial', 'comercial'),
-    ('observador', 'observador'),
-    ('cajero', 'cajero'),
+    ('admin', 'Administrador'),
+    ('gestor', 'Gestor del sistema'),
+    ('comercial', 'Equipo comercial'),
+    ('observador', 'Usuario observador'),
+    ('cajero', 'Cajero/Recepcionista'),
 )
 
 

@@ -26,7 +26,7 @@ class UserViewset(viewsets.ModelViewSet):
             user.is_active = not user.is_active
             user.save()
 
-    @action(detail=True, methods=['POST'], serializer_class=ChangePasswordSerializer)
+    @action(detail=True, methods=['PATCH'], serializer_class=ChangePasswordSerializer)
     def change_password(self, request, pk=None):
         serializer = ChangePasswordSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
