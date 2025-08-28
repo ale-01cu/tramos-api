@@ -4,3 +4,4 @@ from .CoursePermission import CoursePermission
 from .OfferPermission import OfferPermission
 from .MultipleBookingPermission import MultipleBookingPermission
 from .ClassroomPermission import ClassroomPermission
+from .IsAdminPermission import IsAdminPermission
