@@ -1,157 +1,157 @@
 # Tramos API
 
-Tramos API es un sistema RESTful robusto y escalable desarrollado con Django y Django REST Framework. Proporciona una solución integral para la gestión de cursos, ofertas académicas, inscripciones, clientes y pagos, orientado a instituciones educativas.
+Tramos API is a robust and scalable RESTful system developed with Django and Django REST Framework. It provides a comprehensive solution for managing courses, academic offerings, enrollments, clients, and payments, targeted at educational institutions.
 
-## ✨ Características Principales
+## ✨ Main Features
 
-- **Gestión de Usuarios y Roles:** Sistema de autenticación basado en JWT con múltiples roles (admin, gestor, comercial, cajero, observador) para un control de acceso granular.
-- **Gestión Académica Completa:** Administración de Servicios, Cursos, Escuelas, Aulas y Ofertas de cursos.
-- **Sistema de Reservas:** Manejo de reservas para clientes individuales y reservas múltiples para empresas.
-- **Gestión de Clientes y Empresas:** Registro y seguimiento de información de clientes y convenios con empresas.
-- **Integración de Pagos:** Pasarela de pago implementada con Transfermóvil para procesar los pagos de las reservas.
-- **Generación de Reportes:** Endpoints dedicados para generar reportes dinámicos como listas de asistencia, hojas de registro y reportes de comparecencia.
-- **Documentación de API Automatizada:** Documentación interactiva y detallada de la API disponible a través de Swagger UI y Redoc.
-- **Trazabilidad de Acciones:** Middleware para registrar las acciones importantes que ocurren en el sistema.
+- **User and Role Management:** JWT-based authentication system with multiple roles (admin, manager, commercial, cashier, observer) for granular access control.
+- **Complete Academic Management:** Administration of Services, Courses, Schools, Classrooms, and Course Offers.
+- **Booking System:** Handling of individual client bookings and multiple bookings for companies.
+- **Client and Company Management:** Registration and tracking of client information and agreements with companies.
+- **Payment Integration:** Payment gateway implemented with Transfermóvil to process booking payments.
+- **Report Generation:** Dedicated endpoints to generate dynamic reports such as attendance lists, registration sheets, and appearance reports.
+- **Automated API Documentation:** Interactive and detailed API documentation available through Swagger UI and Redoc.
+- **Action Traceability:** Middleware to log important actions that occur in the system.
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Technologies Used
 
 - **Backend:** Python, Django
 - **API:** Django REST Framework
-- **Base de Datos:** PostgreSQL (a través de `psycopg2`)
-- **Autenticación:** JSON Web Tokens (JWT) con `djangorestframework-simplejwt`
-- **Documentación de API:** `drf-spectacular` para generar esquemas OpenAPI (Swagger/Redoc).
-- **Variables de Entorno:** `django-environ`
-- **Servidor de Producción:** Gunicorn
-- **Otros:** `requests` para comunicación con servicios externos.
+- **Database:** PostgreSQL (via `psycopg2`)
+- **Authentication:** JSON Web Tokens (JWT) with `djangorestframework-simplejwt`
+- **API Documentation:** `drf-spectacular` to generate OpenAPI schemas (Swagger/Redoc).
+- **Environment Variables:** `django-environ`
+- **Production Server:** Gunicorn
+- **Others:** `requests` for communication with external services.
 
-## 📂 Estructura del Proyecto
+## 📂 Project Structure
 
 ```
 tramos-api/
-├── api/                    # Directorio principal de la aplicación de la API
-│   ├── migrations/         # Migraciones de la base de datos
-│   ├── models/             # Modelos de Django (esquema de la BD)
-│   ├── middleware/         # Middlewares personalizados
-│   ├── v1/                 # Versión 1 de la API
-│   │   ├── filters/        # Clases de filtros para los viewsets
-│   │   ├── permissions/    # Permisos personalizados
-│   │   ├── serializers/    # Serializadores para los modelos
-│   │   ├── viewsets/       # Lógica de los endpoints (Vistas)
-│   │   └── urls.py         # Rutas de la API v1
+├── api/                    # Main directory for the API application
+│   ├── migrations/         # Database migrations
+│   ├── models/             # Django models (DB schema)
+│   ├── middleware/         # Custom middlewares
+│   ├── v1/                 # API Version 1
+│   │   ├── filters/        # Filter classes for viewsets
+│   │   ├── permissions/    # Custom permissions
+│   │   ├── serializers/    # Serializers for models
+│   │   ├── viewsets/       # Endpoint logic (Views)
+│   │   └── urls.py         # API v1 routes
 │   └── ...
-├── tramos_api/             # Configuración del proyecto Django
-│   ├── settings.py         # Configuración principal
-│   └── urls.py             # Rutas principales del proyecto
-├── .env                    # Archivo para variables de entorno (no versionado)
-├── manage.py               # Utilidad de línea de comandos de Django
-└── requirements.txt        # Dependencias de Python
+├── tramos_api/             # Django project configuration
+│   ├── settings.py         # Main configuration
+│   └── urls.py             # Main project routes
+├── .env                    # File for environment variables (not versioned)
+├── manage.py               # Django command-line utility
+└── requirements.txt        # Python dependencies
 ```
 
-## 🚀 Instalación y Puesta en Marcha
+## 🚀 Installation and Setup
 
-Sigue estos pasos para configurar el entorno de desarrollo local.
+Follow these steps to set up the local development environment.
 
-**1. Clonar el Repositorio**
+**1. Clone the Repository**
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone <REPOSITORY_URL>
 cd tramos-api
 ```
 
-**2. Crear y Activar un Entorno Virtual**
+**2. Create and Activate a Virtual Environment**
 ```bash
-# En Windows
+# On Windows
 python -m venv .venv
 .venv\Scripts\activate
 
-# En macOS/Linux
+# On macOS/Linux
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-**3. Instalar Dependencias**
+**3. Install Dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-**4. Configurar Variables de Entorno**
-Crea un archivo llamado `.env` en la raíz del proyecto y añade las siguientes variables. Reemplaza los valores con tu configuración.
+**4. Configure Environment Variables**
+Create a file named `.env` in the project root and add the following variables. Replace the values with your configuration.
 
 ```ini
 # Tramos API .env file
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY='tu_clave_secreta_aqui'
+SECRET_KEY='your_secret_key_here'
 
-# DEBUG: True para desarrollo, False para producción
+# DEBUG: True for development, False for production
 DEBUG=True
 
-# Configuración de la Base de Datos (ejemplo para PostgreSQL)
-DATABASE_URL='psql://usuario:contraseña@localhost:5432/nombre_db'
+# Database Configuration (example for PostgreSQL)
+DATABASE_URL='psql://user:password@localhost:5432/db_name'
 
-# Configuración de Transfermóvil
-TM_USERNAME='tu_usuario_tm'
-TM_SEED='tu_semilla_tm'
-TM_SOURCE='tu_source_tm'
+# Transfermóvil Configuration
+TM_USERNAME='your_tm_username'
+TM_SEED='your_tm_seed'
+TM_SOURCE='your_tm_source'
 TM_CURRENCY='CUP'
-TM_URL_RESPONSE_TRANSFERMOVIL='https://tu-dominio.com/api/v1/payment/notification/'
-TM_CONNECTION='https://api-transfermovil.com/api' # URL de la API de Transfermóvil
+TM_URL_RESPONSE_TRANSFERMOVIL='https://your-domain.com/api/v1/payment/notification/'
+TM_CONNECTION='https://api-transfermovil.com/api' # Transfermóvil API URL
 ```
 
-**5. Ejecutar Migraciones**
-Aplica las migraciones para crear el esquema de la base de datos.
+**5. Run Migrations**
+Apply the migrations to create the database schema.
 ```bash
 python manage.py migrate
 ```
 
-**6. Crear un Superusuario**
-Esto te permitirá acceder al panel de administración de Django.
+**6. Create a Superuser**
+This will allow you to access the Django administration panel.
 ```bash
 python manage.py createsuperuser
 ```
 
-**7. Ejecutar el Servidor de Desarrollo**
+**7. Run the Development Server**
 ```bash
 python manage.py runserver
 ```
-El API estará disponible en `http://127.0.0.1:8000/`.
+The API will be available at `http://127.0.0.1:8000/`.
 
-## 📚 Endpoints de la API
+## 📚 API Endpoints
 
-La API está versionada y todos los endpoints principales se encuentran bajo el prefijo `/api/v1/`.
+The API is versioned, and all main endpoints are under the `/api/v1/` prefix.
 
-### Autenticación
-- `POST /api/token/`: Obtiene un par de tokens (acceso y refresco) a partir de credenciales de usuario.
-- `POST /api/token/refresh/`: Refresca un token de acceso expirado.
+### Authentication
+- `POST /api/token/`: Obtains a token pair (access and refresh) from user credentials.
+- `POST /api/token/refresh/`: Refreshes an expired access token.
 
-### Gestión Principal
-- `/user/`: Gestión de usuarios (CRUD).
-- `/province/`, `/municipality/`: Gestión de provincias y municipios.
-- `/school/`, `/classroom/`: Gestión de escuelas y aulas.
-- `/service/`, `/course/`: Gestión de servicios y cursos.
-- `/offer/`: Gestión de ofertas de cursos.
-- `/client/`: Gestión de clientes.
-- `/company/`: Gestión de empresas.
-- `/booking/`: Gestión de reservas individuales.
-- `/multipleBooking/`: Gestión de reservas para empresas.
-- `/payment-code/`: Gestión de códigos de pago.
+### Main Management
+- `/user/`: User management (CRUD).
+- `/province/`, `/municipality/`: Province and municipality management.
+- `/school/`, `/classroom/`: School and classroom management.
+- `/service/`, `/course/`: Service and course management.
+- `/offer/`: Course offer management.
+- `/client/`: Client management.
+- `/company/`: Company management.
+- `/booking/`: Individual booking management.
+- `/multipleBooking/`: Company booking management.
+- `/payment-code/`: Payment code management.
 
-### Pagos y Reportes
-- `POST /api/v1/payment/register/`: Inicia un proceso de pago con Transfermóvil.
-- `POST /api/v1/payment/notification/`: Endpoint para recibir notificaciones de pago de Transfermóvil.
-- `GET /api/v1/reports/offer/current`: Lista las ofertas actuales.
-- `GET /api/v1/reports/course-evaluation/`: Genera reportes detallados de cursos.
+### Payments and Reports
+- `POST /api/v1/payment/register/`: Initiates a payment process with Transfermóvil.
+- `POST /api/v1/payment/notification/`: Endpoint to receive payment notifications from Transfermóvil.
+- `GET /api/v1/reports/offer/current`: Lists current offers.
+- `GET /api/v1/reports/course-evaluation/`: Generates detailed course reports.
 
-## 🧪 Ejecución de Pruebas
+## 🧪 Running Tests
 
-Para ejecutar el conjunto de pruebas y verificar la integridad del código, utiliza el siguiente comando:
+To run the test suite and verify the code's integrity, use the following command:
 ```bash
 python manage.py test api
 ```
 
-## 📄 Documentación Interactiva
+## 📄 Interactive Documentation
 
-Este proyecto utiliza `drf-spectacular` para generar una documentación de API interactiva. Una vez que el servidor esté en funcionamiento, puedes acceder a:
+This project uses `drf-spectacular` to generate interactive API documentation. Once the server is running, you can access:
 
 - **Swagger UI:** `http://127.0.0.1:8000/api/v1/swagger/`
 - **Redoc:** `http://127.0.0.1:8000/api/v1/redoc/`
 
-Estas interfaces te permitirán explorar todos los endpoints, ver los parámetros que aceptan y probarlos en tiempo real.
+These interfaces will allow you to explore all endpoints, see the parameters they accept, and test them in real-time.
