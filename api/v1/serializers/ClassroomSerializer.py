@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from api.models import Classroom, Municipality
+from api.v1.serializers import SchoolSerializer
 
 
 class MunicipalityField(serializers.CharField):
@@ -22,6 +23,7 @@ class ClassroomSerializer(serializers.ModelSerializer):
     # province = serializers.CharField(source='municipality.province.name', required=False)
     # municipality = MunicipalityField()
     created_at = serializers.DateTimeField(read_only=True)
+    school = SchoolSerializer(read_only=True)
 
 
     class Meta:

@@ -13,13 +13,13 @@ class CourseViewset(viewsets.ModelViewSet):
     serializer_class = CourseSerializer
     permission_classes = [CoursePermission]
     filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ['name']
+    filterset_fields = ['name', 'service']
     pagination_class = PaginationCursorPagination
 
     def get_queryset(self):
         queryset = self.queryset
         service = self.request.query_params.get('service')
         if not service:
-            raise ValidationError('Service is required')
+            return queryset
         queryset = queryset.filter(service=service)
         return queryset

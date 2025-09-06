@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets, permissions, filters
+from rest_framework import viewsets, permissions, filters, generics
 from rest_framework.exceptions import ValidationError
 
 from api.models import Classroom
@@ -20,8 +20,6 @@ class ClassroomViewset(viewsets.ModelViewSet):
         queryset = self.queryset
         school = self.request.query_params.get('school')
         if not school:
-            raise ValidationError('School is required')
+            return queryset
         queryset = queryset.filter(school=school)
         return queryset
-
-
