@@ -19,7 +19,11 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = (
+            'role', 'first_name', 'last_name',
+            'full_name', 'username', 'school',
+            'email', 'created_at'
+        )
 
 class UserCreateSerializer(serializers.ModelSerializer):
     role = serializers.ChoiceField(choices=ROLE_CHOICES)
