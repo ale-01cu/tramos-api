@@ -10,6 +10,11 @@ PAYMENTCHOICES = (
     ('Check', 'Check'),
 )
 
+# cash
+# transfermovil
+# enzona
+# cheque
+
 
 class Booking(models.Model):
     client = models.ForeignKey(Client, related_name='bookings', on_delete=models.CASCADE)
