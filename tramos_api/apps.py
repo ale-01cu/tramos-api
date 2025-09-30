@@ -8,7 +8,6 @@ class CoreConfig(AppConfig):
     name = 'tramos_api'
 
     def ready(self):
-        from django.conf import settings
         try:
             User = get_user_model()
             default_username = os.getenv('DJANGO_SUPERUSER_USERNAME', 'admin')

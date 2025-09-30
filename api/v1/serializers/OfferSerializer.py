@@ -14,16 +14,16 @@ class OfferSerializer(serializers.ModelSerializer):
     # description = serializers.CharField(max_length=250)
     created_at = serializers.DateTimeField(read_only=True)
 
-    @staticmethod
-    def get_availability(offer):
-        try:
-            availability = OfferAvailability.objects.filter(offer=offer)
-            total = 0
-            for availability in availability:
-                total += availability.availability
-            return total
-        except Exception as e:
-            raise e
+    # @staticmethod
+    # def get_availability(offer):
+    #     try:
+    #         availability = OfferAvailability.objects.filter(offer=offer)
+    #         total = 0
+    #         for availability in availability:
+    #             total += availability.availability
+    #         return total
+    #     except Exception as e:
+    #         raise e
 
     class Meta:
         model = Offer

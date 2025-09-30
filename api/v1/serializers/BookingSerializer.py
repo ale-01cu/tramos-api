@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.utils import timezone
 
-from api.models import Booking, Client, OfferAvailability
+from api.models import Booking, Client
 from api.v1.serializers.ClientSerializer import ClientRelatedField
 
 
@@ -12,18 +12,17 @@ class BookingSerializer(serializers.ModelSerializer):
 
 
 class BookingCreateSerializer(serializers.ModelSerializer):
-    client = ClientRelatedField(queryset=Client.objects.all())
     created_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Booking
         fields = ('client', 'offer', 'typePayment',
-                  'offerAvailability', 'created_at')
-        read_only_fields = ('expirationDate', 'registeredDate', 'created_at')
+                  'created_at')
+        read_only_fields = ('expirationDate', 'created_at')
 
     def validate(self, data):
         offer = data.get('offer')
-        offer_availability = data.get('offerAvailability')
+        # offer_availability = data.get('offerAvailability')
         client_input = data.get('client')
 
         client_instance = None
@@ -48,14 +47,26 @@ class BookingCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {'client': 'Este cliente ya tiene una reserva para esta oferta.'})
 
-        # Validar disponibilidad
-        try:
-            if offer_availability.availability <= 0:
-                raise serializers.ValidationError(
-                    {'offer': 'No hay cupos disponibles para esta oferta en el horario seleccionado.'})
-        except OfferAvailability.DoesNotExist:
+
+        bookings_count = Booking.objects.filter(offer=offer).count()
+        capacity = offer.classroom.capacity
+
+        if bookings_count >= capacity:
             raise serializers.ValidationError(
-                {'offerAvailability': 'No hay disponibilidad para la fecha y hora seleccionada.'})
+                {'offer': 'No hay cupos disponibles para esta oferta en el horario seleccionado.'})
+
+
+        # Validar capacidad del aula
+        if offer.classroom:
+            classroom = offer.classroom
+            # Check if classroom can accommodate one more booking
+            if not classroom.can_accommodate(1):
+                current_bookings = classroom.get_current_bookings()
+                raise serializers.ValidationError({
+                    'offer': f'El aula "{classroom.name}" está llena. '
+                             f'Capacidad máxima: {classroom.capacity}, '
+                             f'Reservas actuales: {current_bookings}'
+                })
 
         return data
 
@@ -88,20 +99,6 @@ class BookingCreateSerializer(serializers.ModelSerializer):
 
         # Creamos la reserva
         booking_instance = Booking.objects.create(client=client_instance, **validated_data)
-
-        # Decrementamos la disponibilidad (envuelto en un bloque try-except para seguridad)
-        try:
-            availability_slot = OfferAvailability.objects.filter(offer=offer, time=offer_availability.time).first()
-            availability_slot.availability -= 1
-            availability_slot.save()
-        except OfferAvailability.DoesNotExist:
-            # Aunque esto se valida en `validate`, es una buena práctica manejarlo aquí también
-            # en caso de una condición de carrera (race condition).
-            # Aquí podrías decidir si eliminar la reserva recién creada o marcarla como inválida.
-            booking_instance.delete()
-            raise serializers.ValidationError(
-                {'offerAvailability': 'La disponibilidad cambió. Inténtelo de nuevo.'})
-
         return booking_instance
 
 

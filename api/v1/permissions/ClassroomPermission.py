@@ -9,8 +9,7 @@ class ClassroomPermission(permissions.BasePermission):
         if user is None:
             raise exceptions.NotAuthenticated(detail='User is None')
 
-        if view.action in ['create', 'patch', 'delete']:
-            return user.role == 'admin' or user.role == 'gestor'
+        return user.role == 'admin' or user.role == 'gestor'
 
 
 
