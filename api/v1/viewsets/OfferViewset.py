@@ -11,7 +11,7 @@ from api.v1.pagination import PaginationCursorPagination
 class OfferViewset(viewsets.ModelViewSet):
     queryset = Offer.objects.all()
     # serializer_class = OfferSerializer
-    permission_classes = (permissions.IsAuthenticated, OfferPermission)
+    permission_classes = (OfferPermission, )
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('classroom', 'description', 'course')
     pagination_class = PaginationCursorPagination
